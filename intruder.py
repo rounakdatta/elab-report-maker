@@ -6,7 +6,7 @@ home_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/home.php'
 
 payload = {
 	'uname': 'RA1611003010672',
-	'pass': 'mkizrely616'
+	'pass': '**'
 }
 
 with requests.Session() as s:
