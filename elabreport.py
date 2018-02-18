@@ -2,9 +2,21 @@ import requests
 import os
 import img2pdf
 
-login_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login_check.php'
-home_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/home.php'
-quesion_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/java.code.php?id=1&value='
+java1 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava1/', 'code': 'java/java.code.php', 'key': 'java'}
+java2 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava2/', 'code': 'java/java.code.php', 'key': 'java'}
+ada = {'url': 'http://care.srmuniv.ac.in/ktrcseada/', 'code': 'daa/daa.code.php', 'key': 'daa'}
+
+elab = input()
+if(elab == 'java1'):
+	elab = java1
+elif(elab == 'java2'):
+	elab = java2
+if(elab == 'ada'):
+	elab = ada
+
+login_page = elab['url'] + 'login_check.php'
+home_page = elab['url'] + 'login/student/home.php'
+question_page = elab['url'] + 'login/student/code/' + elab['code'] + '?id=1&value='
 
 payload = {
 	'uname': 'USERNAME',
@@ -27,46 +39,68 @@ with requests.Session() as s:
 
 	# question page requests & responses
 
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/question.php')
-	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/home.helper.php', data={'text': 'JAVA'})
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/question.php')
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/question.list.js')
-	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/course.get.php', data={'q': 'SESSION'})
-	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/course.get.php', data={'q': 'VALUES'})
+	s.get(elab['url'] + 'login/student/question.php')
+	s.post(elab['url'] + 'login/student/home.helper.php', data={'text': elab['key'].upper()})
+	s.get(elab['url'] + 'login/student/question.php')
+	s.get(elab['url'] + 'login/student/question.list.js')
+	s.post(elab['url'] + 'login/student/course.get.php', data={'q': 'SESSION'})
+	s.post(elab['url'] + 'login/student/course.get.php', data={'q': 'VALUES'})
 
 
 	# individual question -> code page
 
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/java.code.php?id=1&value=0')
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/Code-mirror/lib/codemirror.js')
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/Code-mirror/mode/clike/clike.js')
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/code.elab.js')
-	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
-	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/flag.checker.php')
+	s.get(elab['url'] + 'login/student/code/' + elab['code'] + '?id=1&value=0')
+	s.get(elab['url'] + 'Code-mirror/lib/codemirror.js')
+	s.get(elab['url'] + 'Code-mirror/mode/clike/clike.js')
+	s.get(elab['url'] + 'login/student/code/' + elab['key'] + '/code.elab.js')
+	s.post(elab['url'] + 'login/student/code/code.get.php')
+	s.post(elab['url'] + 'login/student/code/flag.checker.php')
 
 
 	# get the code, evaluate it and download the report (if 100%)
 
-	for i in range(0, 100):
+	for i in range(0, 20):
 
-		present_question = quesion_page + str(i)
+		present_question = question_page + str(i)
 		s.get(present_question)
-		code = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
-		evaluate_payload = s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
+		code = s.get(elab['url'] + 'login/student/code/code.get.php')
 
-		complete_percent = evaluate_payload.text[-4:-1]
+		#print(code.text)
 
-		if(complete_percent == '100'):
+		if(code.text != ''):
 
-			print(str(i) + ' : getting report')
-			file = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/getReport.php')
+			if(elab['key'] == 'daa'):
+	
+					evaluate_payload_c = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'c'})
+					evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
+					evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
+					evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
 
-			with open(str(i) + '.png', 'wb') as f:
-				f.write(file.content)
+					if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
+						complete_percent = '100'
+					else:
+						complete_percent = '0'
+	
+			else:
+				evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
+				complete_percent = evaluate_payload.text[-4:-1]
 
-		else:
+		
 
-			print(str(i) + ' : evaluation error : Couldn\'t getreport')
+			if(complete_percent == '100'):
+	
+				print(str(i) + ' : getting report')
+				file = s.get(elab['url'] + 'login/student/code/getReport.php')
+
+				with open(str(i) + '.png', 'wb') as f:
+					f.write(file.content)
+	
+			else:
+	
+				print(str(i) + ' : evaluation error : Couldn\'t get report')
+
+		else:		
+			print(str(i) + ' : No code written')
 
 
 	# put all the images to PDF
@@ -79,7 +113,8 @@ with requests.Session() as s:
 
 	# remove the image files
 
-	for i in range(0, 5):
-		os.remove(str(i) + '.png')
+	for i in range(0, 20):
+		if(os.path.isfile(str(i) + '.png')):
+			os.remove(str(i) + '.png')
 
 	print('Image files cleared')
