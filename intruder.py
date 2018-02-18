@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 login_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login_check.php'
 home_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/home.php'
+quesion_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/java.code.php?id=1&value='
 
 payload = {
 	'uname': 'RA1611003010672',
@@ -42,33 +43,32 @@ with requests.Session() as s:
 
 	# get the code
 
-	g = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
+	'''g = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
 	print(g.text)
 
 	n = s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/code.evaluate.elab.php', data={'code': g.text, 'input': ''})
 
-	print(n.text)
+	complete_percent = n.text[-4:-1]
 
-	file = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/getReport.php')
+	if(complete_percent == '100'):
 
-	with open('report', 'wb') as f:
-		f.write(file.content)
+		file = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/getReport.php')
 
+		with open('report', 'wb') as f:
+			f.write(file.content)'''
 
-	'''for i in range(0, 5):
-		present_question = question_page + str(i)
+	for i in range(0, 5):
 
-		print(present_question)
+		present_question = quesion_page + str(i)
+		s.get(present_question)
+		code = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
+		evaluate_payload = s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
 
-		goto_question = s.get(present_question)
+		complete_percent = evaluate_payload.text[-4:-1]
 
-		print(goto_question.text)
+		if(complete_percent == '100'):
 
-		got_code = s.get(get_code)
+			file = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/getReport.php')
 
-		print(got_code.text)
-
-
-		
-		#print(soup.prettify())
-		#s.post(evaluation_url, data=)'''
+			with open(str(i), 'wb') as f:
+				f.write(file.content)
