@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 import os
 import img2pdf
 
@@ -8,9 +7,11 @@ home_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/home.php'
 quesion_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/java.code.php?id=1&value='
 
 payload = {
-	'uname': 'RA1611003010672',
-	'pass': '***'
+	'uname': 'USERNAME',
+	'pass': 'PASSWORD'
 }
+
+print('eLab Report Generator : ' + payload['uname'])
 
 with requests.Session() as s:
 
@@ -43,23 +44,10 @@ with requests.Session() as s:
 	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
 	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/flag.checker.php')
 
-	# get the code
 
-	'''g = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
-	print(g.text)
+	# get the code, evaluate it and download the report (if 100%)
 
-	n = s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/code.evaluate.elab.php', data={'code': g.text, 'input': ''})
-
-	complete_percent = n.text[-4:-1]
-
-	if(complete_percent == '100'):
-
-		file = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/getReport.php')
-
-		with open('report', 'wb') as f:
-			f.write(file.content)'''
-
-	for i in range(0, 5):
+	for i in range(0, 100):
 
 		present_question = quesion_page + str(i)
 		s.get(present_question)
@@ -70,10 +58,28 @@ with requests.Session() as s:
 
 		if(complete_percent == '100'):
 
+			print(str(i) + ' : getting report')
 			file = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/getReport.php')
 
-			with open(str(i), 'wb') as f:
+			with open(str(i) + '.png', 'wb') as f:
 				f.write(file.content)
 
-	#with open("output.pdf", "wb") as f:
-	#	f.write(img2pdf.convert([i for i in os.listdir('./maja') if i.endswith('.PNG')]))
+		else:
+
+			print(str(i) + ' : evaluation error : Couldn\'t getreport')
+
+
+	# put all the images to PDF
+
+	filename = payload['uname'] + '.pdf'
+	with open(filename, "wb") as f:
+		f.write(img2pdf.convert([i for i in os.listdir('.') if i.endswith('.png')]))
+
+	print('PDF file named ' + filename + ' generated')
+
+	# remove the image files
+
+	for i in range(0, 5):
+		os.remove(str(i) + '.png')
+
+	print('Image files cleared')
