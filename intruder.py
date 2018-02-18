@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import os
+import img2pdf
 
 login_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login_check.php'
 home_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/home.php'
@@ -72,3 +74,6 @@ with requests.Session() as s:
 
 			with open(str(i), 'wb') as f:
 				f.write(file.content)
+
+	#with open("output.pdf", "wb") as f:
+	#	f.write(img2pdf.convert([i for i in os.listdir('./maja') if i.endswith('.PNG')]))
