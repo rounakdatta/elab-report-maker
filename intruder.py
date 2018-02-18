@@ -6,7 +6,7 @@ home_page = 'http://care.srmuniv.ac.in/ktrcsejava2/login/student/home.php'
 
 payload = {
 	'uname': 'RA1611003010672',
-	'pass': '**'
+	'pass': '***'
 }
 
 with requests.Session() as s:
@@ -40,14 +40,20 @@ with requests.Session() as s:
 	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
 	s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/flag.checker.php')
 
-
+	# get the code
 
 	g = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
 	print(g.text)
 
-	s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/java.code.php?id=1&value=1')
-	x = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/code.get.php')
-	print(x.text)
+	n = s.post('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/java/code.evaluate.elab.php', data={'code': g.text, 'input': ''})
+
+	print(n.text)
+
+	file = s.get('http://care.srmuniv.ac.in/ktrcsejava2/login/student/code/getReport.php')
+
+	with open('report', 'wb') as f:
+		f.write(file.content)
+
 
 	'''for i in range(0, 5):
 		present_question = question_page + str(i)
