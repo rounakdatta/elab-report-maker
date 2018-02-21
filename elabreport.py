@@ -93,7 +93,7 @@ def gen_report(username, password, elabx):
 					print(str(i) + ' : getting report')
 					file = s.get(elab['url'] + 'login/student/code/getReport.php')
 	
-					with open(str(i) + '.png', 'wb') as f:
+					with open(payload['uname'] + '-' + str(i) + '.png', 'wb') as f:
 						f.write(file.content)
 		
 				else:
@@ -116,7 +116,7 @@ def gen_report(username, password, elabx):
 		# remove the image files
 	
 		for i in range(0, 10):
-			if(os.path.isfile(str(i) + '.png')):
-				os.remove(str(i) + '.png')
+			if(os.path.isfile(payload['uname'] + '-' + str(i) + '.png')):
+				os.remove(payload['uname'] + '-' + str(i) + '.png')
 	
 		print('Image files cleared')
