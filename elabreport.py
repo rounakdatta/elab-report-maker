@@ -62,7 +62,7 @@ def gen_report(username, password, elabx):
 	
 		# get the code, evaluate it and download the report (if 100%)
 	
-		for i in range(0, 10):
+		for i in range(0, 100):
 	
 			present_question = question_page + str(i)
 			s.get(present_question)
@@ -115,7 +115,7 @@ def gen_report(username, password, elabx):
 
 		# remove the image files
 	
-		for i in range(0, 10):
+		for i in range(0, 100):
 			if(os.path.isfile(payload['uname'] + '-' + str(i) + '.png')):
 				os.remove(payload['uname'] + '-' + str(i) + '.png')
 	
