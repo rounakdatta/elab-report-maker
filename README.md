@@ -22,10 +22,10 @@ _Allow upto 10 mins even on a very fast connection_
 
 - At the beginning of code-cell-1 and replace *USERNAME*, *PASSWORD*, *ELAB* with your respective eLab credentials.
 
-- Hit **Shift + Enter**.
+- Hit <img src="https://image.freepik.com/free-icon/round-play-button_318-121636.jpg" data-canonical-src="https://image.freepik.com/free-icon/round-play-button_318-121636.jpg" width="20" height="20" /> or **Shift + Enter**.
   Scroll down to view progress.
   
-- Again hit **Shift + Enter** for code-cell-2 to download the generated PDF.
+- Again hit <img src="https://image.freepik.com/free-icon/round-play-button_318-121636.jpg" data-canonical-src="https://image.freepik.com/free-icon/round-play-button_318-121636.jpg" width="20" height="20" /> or **Shift + Enter** for code-cell-2 to download the generated PDF.
 
 >Google Colab is an entirely free cloud platform!
 
