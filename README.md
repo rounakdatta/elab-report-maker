@@ -12,7 +12,7 @@
 
 _Allow upto 10 mins even on a very fast connection_
 
-### Cloud usage
+### Cloud usage (Recommended)
 
 - Download the IPy notebook from [here](https://drive.google.com/file/d/1lygxHEzapqqRFKgBxy_gRsjFK2ldGX-B/view?usp=sharing).
 
