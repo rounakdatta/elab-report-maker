@@ -10,7 +10,7 @@
 
 - Go to [localhost:5000](http://localhost:5000)
 
-_Allow upto 10 mins even on a very fast connection_
+_Allow upto 10 mins even on a very fast connection_.
 
 ### Cloud usage (Recommended)
 
@@ -20,7 +20,7 @@ _Allow upto 10 mins even on a very fast connection_
 
 - Use File menu to upload the IPy notebook.
 
-- At the beginning of code-cell-1 and replace *USERNAME*, *PASSWORD*, *ELAB* with your respective eLab credentials.
+- At the beginning of code-cell-1, replace *USERNAME*, *PASSWORD*, *ELAB* with your respective eLab credentials.
 
 - Hit <img src="https://image.freepik.com/free-icon/round-play-button_318-121636.jpg" data-canonical-src="https://image.freepik.com/free-icon/round-play-button_318-121636.jpg" width="20" height="20" /> or **Shift + Enter**.
   Scroll down to view progress.
@@ -30,5 +30,7 @@ _Allow upto 10 mins even on a very fast connection_
 >Google Colab is an entirely free cloud platform!
 
 ### Demo Web App
+
+This app is just a sample web-app and will generate only the first 5 reports of your eLab.
 
 [elabreport.ml](http://elabreport.ml)
