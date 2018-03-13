@@ -31,6 +31,4 @@ _Allow upto 10 mins even on a very fast connection_.
 
 ### Demo Web App
 
-This app is just a sample web-app and will generate only the first 5 reports of your eLab.
-
 [elabreport.ml](http://elabreport.ml)
