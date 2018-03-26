@@ -7,6 +7,9 @@ def gen_report(username, password, elabx):
 	java1 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava1/', 'code': 'java/java.code.php', 'key': 'java'}
 	java2 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava2/', 'code': 'java/java.code.php', 'key': 'java'}
 	ada = {'url': 'http://care.srmuniv.ac.in/ktrcseada/', 'code': 'daa/daa.code.php', 'key': 'daa'}
+	it_ada = {'url': 'http://care1.srmuniv.ac.in/ktritada/', 'code': 'daa/daa.code.php', 'key': 'daa'}
+	it_java = {'url': 'http://care1.srmuniv.ac.in/ktritjava/', 'code': 'java/java.code.php', 'key': 'java'}
+	
 	
 	if(elabx == 'java1'):
 		elab = java1
@@ -14,6 +17,10 @@ def gen_report(username, password, elabx):
 		elab = java2
 	elif(elabx == 'ada'):
 		elab = ada
+	elif(elabx == 'it_java'):
+		elab = it_java
+	elif(elabx == 'it_ada'):
+		elab = it_ada
 	else:
 		return
 	
