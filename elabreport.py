@@ -2,11 +2,14 @@ import requests
 import os
 import img2pdf
 
-def gen_report(username, password, elabx):
+def gen_report(username, password, elabx, level):
 
 	java1 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava1/', 'code': 'java/java.code.php', 'key': 'java'}
 	java2 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava2/', 'code': 'java/java.code.php', 'key': 'java'}
 	ada = {'url': 'http://care.srmuniv.ac.in/ktrcseada/', 'code': 'daa/daa.code.php', 'key': 'daa'}
+	it_ada = {'url': 'http://care1.srmuniv.ac.in/ktritada/', 'code': 'daa/daa.code.php', 'key': 'daa'}
+	it_java = {'url': 'http://care1.srmuniv.ac.in/ktritjava/', 'code': 'java/java.code.php', 'key': 'java'}
+	
 	
 	if(elabx == 'java1'):
 		elab = java1
@@ -14,12 +17,16 @@ def gen_report(username, password, elabx):
 		elab = java2
 	elif(elabx == 'ada'):
 		elab = ada
+	elif(elabx == 'it_java'):
+		elab = it_java
+	elif(elabx == 'it_ada'):
+		elab = it_ada
 	else:
 		return
 	
 	login_page = elab['url'] + 'login_check.php'
 	home_page = elab['url'] + 'login/student/home.php'
-	question_page = elab['url'] + 'login/student/code/' + elab['code'] + '?id=1&value='
+	question_page = elab['url'] + 'login/student/code/' + elab['code'] + '?id=' + level + '&value='
 	
 	payload = {
 		'uname': username,
@@ -52,7 +59,7 @@ def gen_report(username, password, elabx):
 	
 		# individual question -> code page
 	
-		s.get(elab['url'] + 'login/student/code/' + elab['code'] + '?id=1&value=0')
+		s.get(elab['url'] + 'login/student/code/' + elab['code'] + '?id=' + level + '&value=0')
 		s.get(elab['url'] + 'Code-mirror/lib/codemirror.js')
 		s.get(elab['url'] + 'Code-mirror/mode/clike/clike.js')
 		s.get(elab['url'] + 'login/student/code/' + elab['key'] + '/code.elab.js')
@@ -66,47 +73,52 @@ def gen_report(username, password, elabx):
 	
 			present_question = question_page + str(i)
 			s.get(present_question)
-			code = s.get(elab['url'] + 'login/student/code/code.get.php')
-	
-			if(code.text != ''):
-	
-				if(elab['key'] == 'daa'):
+
+			if(s.get(present_question).text.find('NOT ALLOCATED')==-1):
+				code = s.get(elab['url'] + 'login/student/code/code.get.php')			
+
+				if(code.text != ''):
 		
-						evaluate_payload_c = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'c'})
-						evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
-						evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
-						evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
-	
-						if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
-							complete_percent = '100'
-						else:
-							complete_percent = '0'
-		
-				else:
-					evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
-					complete_percent = evaluate_payload.text[-4:-1]
-	
+					if(elab['key'] == 'daa'):
 			
-	
-				if(complete_percent == '100'):
+							evaluate_payload_c = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'c'})
+							evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
+							evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
+							evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
 		
-					print(str(i) + ' : getting report')
-					file = s.get(elab['url'] + 'login/student/code/getReport.php')
-	
-					with open(payload['uname'] + '-' + str(i) + '.png', 'wb') as f:
-						f.write(file.content)
+							if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
+								complete_percent = '100'
+							else:
+								complete_percent = '0'
+			
+					else:
+						evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
+						complete_percent = evaluate_payload.text[-4:-1]
 		
-				else:
+				
 		
-					print(str(i) + ' : evaluation error : Couldn\'t get report')
-	
-			else:		
-				print(str(i) + ' : No code written')
-	
-	
+					if(complete_percent == '100'):
+			
+						print(str(i) + ' : getting report')
+						file = s.get(elab['url'] + 'login/student/code/getReport.php')
+		
+						with open(payload['uname'] + '-' + str(i) + '.png', 'wb') as f:
+							f.write(file.content)
+			
+					else:
+			
+						print(str(i) + ' : evaluation error : Couldn\'t get report')
+		
+				else:		
+					print(str(i) + ' : No code written')
+
+			else:
+				print(str(i) + ' : Question not allocated')
+
+
 		# put all the images to PDF
 	
-		filename = payload['uname'] + '-' + elabx.upper() + '.pdf'
+		filename = payload['uname'] + '-' + elabx.upper() + '-Level-' + level + '.pdf'
 		with open(filename, "wb") as f:
 			f.write(img2pdf.convert([i for i in os.listdir('.') if i.endswith('.png')]))
 	
