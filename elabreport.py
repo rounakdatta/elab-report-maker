@@ -99,28 +99,28 @@ def gen_report(username, password, elabx, level):
 		
 					if(complete_percent == '100'):
 			
-						print(str(i) + ' : getting report')
+						print(str(i + 1) + ' : getting report')
 						file = s.get(elab['url'] + 'login/student/code/getReport.php')
 		
-						with open(payload['uname'] + '-' + str(i) + '.png', 'wb') as f:
+						with open(payload['uname'] + '-' + str(i).zfill(3) + '.png', 'wb') as f:
 							f.write(file.content)
 			
 					else:
 			
-						print(str(i) + ' : evaluation error : Couldn\'t get report')
+						print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
 		
 				else:		
-					print(str(i) + ' : No code written')
+					print(str(i + 1) + ' : No code written')
 
 			else:
-				print(str(i) + ' : Question not allocated')
+				print(str(i + 1) + ' : Question not allocated')
 
 
 		# put all the images to PDF
 	
 		filename = payload['uname'] + '-' + elabx.upper() + '-Level-' + level + '.pdf'
-		with open(filename, "wb") as f:
-			f.write(img2pdf.convert([i for i in os.listdir('.') if i.endswith('.png')]))
+		with open(filename, "ab") as f:
+			f.write(img2pdf.convert([i for i in sorted(os.listdir('.')) if i.endswith('.png')]))
 	
 		print('PDF file named ' + filename + ' generated')
 	
