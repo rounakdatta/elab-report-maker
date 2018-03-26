@@ -1,6 +1,6 @@
 # eLab Report Generator
 
-- java1, java2, ada
+- java1, java2, ada, it-ada, it-java
 
 - Deps : __requests, img2pdf__
 
