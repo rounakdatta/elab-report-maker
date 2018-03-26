@@ -1,3 +1,3 @@
 @echo off
 python -m pip install Flask img2pdf requests
-python app.py
+python %~dp0%app.py

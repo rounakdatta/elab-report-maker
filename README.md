@@ -6,7 +6,8 @@
 
 ### Local usage
 
-- ```make```
+- ```make``` for Linux
+- Run ```run.bat``` as Administrator for Windows
 
 - Go to [localhost:5000](http://localhost:5000)
 
