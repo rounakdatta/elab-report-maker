@@ -4,6 +4,10 @@
 
 - Deps : __requests, img2pdf__
 
+### Demo
+
+![Alt Text](https://github.com/rounakdatta/elab-report-maker/blob/master/demo.gif)
+
 ### Local usage
 
 - ```make``` for Linux
