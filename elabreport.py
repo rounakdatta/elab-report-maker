@@ -2,7 +2,7 @@ import requests
 import os
 import img2pdf
 
-def gen_report(username, password, elabx):
+def gen_report(username, password, elabx, level):
 
 	java1 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava1/', 'code': 'java/java.code.php', 'key': 'java'}
 	java2 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava2/', 'code': 'java/java.code.php', 'key': 'java'}
@@ -26,7 +26,7 @@ def gen_report(username, password, elabx):
 	
 	login_page = elab['url'] + 'login_check.php'
 	home_page = elab['url'] + 'login/student/home.php'
-	question_page = elab['url'] + 'login/student/code/' + elab['code'] + '?id=1&value='
+	question_page = elab['url'] + 'login/student/code/' + elab['code'] + '?id=' + level + '&value='
 	
 	payload = {
 		'uname': username,
@@ -59,7 +59,7 @@ def gen_report(username, password, elabx):
 	
 		# individual question -> code page
 	
-		s.get(elab['url'] + 'login/student/code/' + elab['code'] + '?id=1&value=0')
+		s.get(elab['url'] + 'login/student/code/' + elab['code'] + '?id=' + level + '&value=0')
 		s.get(elab['url'] + 'Code-mirror/lib/codemirror.js')
 		s.get(elab['url'] + 'Code-mirror/mode/clike/clike.js')
 		s.get(elab['url'] + 'login/student/code/' + elab['key'] + '/code.elab.js')
@@ -118,7 +118,7 @@ def gen_report(username, password, elabx):
 
 		# put all the images to PDF
 	
-		filename = payload['uname'] + '-' + elabx.upper() + '.pdf'
+		filename = payload['uname'] + '-' + elabx.upper() + '-Level-' + level + '.pdf'
 		with open(filename, "wb") as f:
 			f.write(img2pdf.convert([i for i in os.listdir('.') if i.endswith('.png')]))
 	

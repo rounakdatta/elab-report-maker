@@ -11,6 +11,7 @@ def index():
 		username = request.form['name']
 		password = request.form['password']
 		elabx = request.form['elab']
+		level = request.form['level']
 
 		global dummy
 
@@ -22,9 +23,9 @@ def index():
 
 		dummy = username
 
-		elabreport.gen_report(username, password, elabx)
+		elabreport.gen_report(username, password, elabx, level)
 
-		filename = username + '-' + elabx.upper() + '.pdf'
+		filename = username + '-' + elabx.upper() + '-Level-' + level + '.pdf'
 
 		return send_file('./' + filename, as_attachment=True)
 
