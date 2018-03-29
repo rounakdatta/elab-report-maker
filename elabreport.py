@@ -131,7 +131,7 @@ def gen_report(username, password, elabx, level):
 		# remove the image files
 	
 		for i in range(0, 100):
-			if(os.path.isfile(payload['uname'] + '-' + str(i) + '.png')):
-				os.remove(payload['uname'] + '-' + str(i) + '.png')
+			if(os.path.isfile(payload['uname'] + '-' + str(i).zfill(3) + '.png')):
+				os.remove(payload['uname'] + '-' + str(i).zfill(3) + '.png')
 	
 		print('Image files cleared')
