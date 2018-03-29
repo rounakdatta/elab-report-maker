@@ -23,9 +23,10 @@ def index():
 
 		dummy = username
 
-		elabreport.gen_report(username, password, elabx, level)
-
-		filename = username + '-' + elabx.upper() + '-Level-' + level + '.pdf'
+		if level=="all":
+			filename = elabreport.gen_report_all(username, password, elabx)
+		else:
+			filename = elabreport.gen_report(username, password, elabx, level)
 
 		return send_file('./' + filename, as_attachment=True)
 
