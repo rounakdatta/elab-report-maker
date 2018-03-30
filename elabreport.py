@@ -71,8 +71,10 @@ def gen_report(username, password, elabx, level):
 	
 	
 		# get the code, evaluate it and download the report (if 100%)
-	
-		for i in range(0, 100):
+		
+		i = 0
+
+		while i < 100:
 	
 			present_question = question_page + str(i)
 			s.get(present_question)
@@ -109,14 +111,21 @@ def gen_report(username, password, elabx, level):
 							f.write(file.content)
 			
 					else:
-			
-						print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
+
+						if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
+							print(str(i + 1) + ' : Error... Trying again')
+							i-=1;
+						
+						else:
+							print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
 		
 				else:		
 					print(str(i + 1) + ' : No code written')
 
 			else:
 				print(str(i + 1) + ' : Question not allocated')
+
+			i+=1
 
 
 		# put all the images to PDF
@@ -186,7 +195,9 @@ def gen_report_all(username, password, elabx):
 			question_page = elab['url'] + 'login/student/code/' + elab['code'] + '?id=' + str(level) + '&value='
 			print("LEVEL " + str(level))
 
-			for i in range(0, 100):
+			i = 0
+
+			while i < 100:
 		
 				present_question = question_page + str(i)
 
@@ -222,14 +233,21 @@ def gen_report_all(username, password, elabx):
 								f.write(file.content)
 				
 						else:
-				
-							print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
+
+							if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
+								print(str(i + 1) + ' : Error... Trying again')
+								i-=1;
+							
+							else:
+								print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
 			
 					else:		
 						print(str(i + 1) + ' : No code written')
 
 				else:
 					print(str(i + 1) + ' : Question not allocated')
+
+				i+=1
 
 
 		# put all the images to PDF
