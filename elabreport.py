@@ -112,9 +112,11 @@ def gen_report(username, password, elabx, level):
 			
 					else:
 
-						if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
-							print(str(i + 1) + ' : Error... Trying again')
-							i-=1;
+						if elab['key'] == 'java':
+
+							if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
+								print(str(i + 1) + ' : Error... Trying again')
+								i-=1;
 						
 						else:
 							print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
