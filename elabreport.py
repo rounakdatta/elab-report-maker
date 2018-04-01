@@ -112,9 +112,11 @@ def gen_report(username, password, elabx, level):
 			
 					else:
 
-						if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
-							print(str(i + 1) + ' : Error... Trying again')
-							i-=1;
+						if elab['key'] == 'java':
+
+							if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
+								print(str(i + 1) + ' : Error... Trying again')
+								i-=1;
 						
 						else:
 							print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
@@ -208,15 +210,15 @@ def gen_report_all(username, password, elabx):
 			
 						if(elab['key'] == 'daa'):
 				
-								evaluate_payload_c = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'c'})
-								evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
-								evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
-								evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
-			
-								if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
-									complete_percent = '100'
-								else:
-									complete_percent = '0'
+							evaluate_payload_c = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'c'})
+							evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
+							evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
+							evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
+		
+							if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
+								complete_percent = '100'
+							else:
+								complete_percent = '0'
 				
 						else:
 							evaluate_payload = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': ''})
@@ -234,9 +236,11 @@ def gen_report_all(username, password, elabx):
 				
 						else:
 
-							if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
-								print(str(i + 1) + ' : Error... Trying again')
-								i-=1;
+							if elab['key'] == 'java':
+
+								if evaluate_payload.text.lower().find('score')==-1 and evaluate_payload.text.lower().find('exception')==-1 and evaluate_payload.text.lower()[60:].find('error')==-1:
+									print(str(i + 1) + ' : Error... Trying again')
+									i-=1;
 							
 							else:
 								print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
