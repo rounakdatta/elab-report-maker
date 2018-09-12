@@ -4,15 +4,32 @@ import img2pdf
 
 def gen_report(username, password, elabx, level):
 
+	computingskill_c = {'url': 'http://care.srmuniv.ac.in/computingskill/', 'code': 'c/c.code.php', 'key': 'c'}
+	computingskill_cpp = {'url': 'http://care.srmuniv.ac.in/computingskill/', 'code': 'cpp/cpp.code.php', 'key': 'CPP'}
+	computingskill_java = {'url': 'http://care.srmuniv.ac.in/computingskill/', 'code': 'java/java.code.php', 'key': 'JAVA'}
+	computingskill_ds = {'url': 'http://care.srmuniv.ac.in/computingskill/', 'code': 'data-structure/data-structure.code.php', 'key': 'DATA-STRUCTURE'}
+	computingskill_ml = {'url': 'http://care.srmuniv.ac.in/computingskill/', 'code': 'mathslab/mathslab.code.php', 'key': 'MATHSLAB'}
+	computingskill_py = {'url': 'http://care.srmuniv.ac.in/computingskill/', 'code': 'python/python.code.php', 'key': 'PYTHON'}
 	java1 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava1/', 'code': 'java/java.code.php', 'key': 'java'}
 	java2 = {'url': 'http://care.srmuniv.ac.in/ktrcsejava2/', 'code': 'java/java.code.php', 'key': 'java'}
 	ada = {'url': 'http://care.srmuniv.ac.in/ktrcseada/', 'code': 'daa/daa.code.php', 'key': 'daa'}
 	pdd = {'url': 'http://care.srmuniv.ac.in/ktrcsepdd/', 'code': 'c/c.code.php', 'key': 'c'}
 	it_ada = {'url': 'http://care1.srmuniv.ac.in/ktritada/', 'code': 'daa/daa.code.php', 'key': 'daa'}
 	it_java = {'url': 'http://care1.srmuniv.ac.in/ktritjava/', 'code': 'java/java.code.php', 'key': 'java'}
-	
-	
-	if(elabx == 'java1'):
+
+	if(elabx == 'computingskill_c'):
+		elab = computingskill_c
+	elif(elabx == 'computingskill_cpp'):
+		elab = computingskill_cpp
+	elif(elabx == 'computingskill_java'):
+		elab = computingskill_java
+	elif(elabx == 'computingskill_ds'):
+		elab = computingskill_ds
+	elif(elabx == 'computingskill_ml'):
+		elab = computingskill_ml
+	elif(elabx == 'computingskill_py'):
+		elab = computingskill_py
+	elif(elabx == 'java1'):
 		elab = java1
 	elif(elabx == 'java2'):
 		elab = java2
@@ -90,8 +107,9 @@ def gen_report(username, password, elabx, level):
 							evaluate_payload_cpp = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'cpp'})
 							evaluate_payload_java = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'java'})
 							evaluate_payload_python = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'python'})
+							evaluate_payload_mathslab = s.post(elab['url'] + 'login/student/code/' + elab['key'] + '/code.evaluate.elab.php', data={'code': code.text, 'input': '', 'language': 'mathslab'})
 		
-							if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1]]:
+							if '100' in [evaluate_payload_c.text[-4:-1], evaluate_payload_cpp.text[-4:-1], evaluate_payload_java.text[-4:-1], evaluate_payload_python.text[-4:-1], evaluate_payload_mathslab[-4:-1]]:
 								complete_percent = '100'
 							else:
 								complete_percent = '0'

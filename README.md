@@ -10,8 +10,8 @@
 
 ### Local usage
 
-- ```make``` for Linux
-- Run ```run.bat``` as Administrator for Windows
+- Command ```make``` for Linux / MacOS
+- Run ```run.bat``` on Windows
 
 - Go to [localhost:5000](http://localhost:5000)
 
