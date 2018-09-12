@@ -6,7 +6,7 @@
 
 ### Demo
 
-![Alt Text](https://github.com/rounakdatta/elab-report-maker/blob/master/demo.gif)
+![GIF Not available](https://github.com/rounakdatta/elab-report-maker/blob/master/demo.gif)
 
 ### Local usage
 
@@ -19,11 +19,9 @@ _Allow upto 10 mins even on a very fast connection_.
 
 ### Cloud usage (Recommended)
 
-- Download the IPy notebook from [here](https://drive.google.com/file/d/1lygxHEzapqqRFKgBxy_gRsjFK2ldGX-B/view?usp=sharing).
+- Goto this [Colab Notebook](https://colab.​research.​google.​com/github/rounakdatta/elab-report-maker/blob/master/elabreport.ipynb).
 
-- Head on to [Google Colab](https://colab.research.google.com) and sign up.
-
-- Use File menu to upload the IPy notebook.
+- Sign Up / In before proceeding with any changes
 
 - At the beginning of code-cell-1, replace *USERNAME*, *PASSWORD*, *ELAB* with your respective eLab credentials.
 
@@ -36,4 +34,4 @@ _Allow upto 10 mins even on a very fast connection_.
 
 ### Demo Web App
 
-[elabreport.ml](http://elabreport.ml)
+[elabreport.herokuapp.com](http://elabreport.herokuapp.com)
