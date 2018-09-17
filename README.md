@@ -1,8 +1,10 @@
 # eLab Report Generator
 
-- java1, java2, ada, it-ada, it-java
+```1st year``` : PDD
 
-- Deps : __requests, img2pdf__
+```2nd year``` : Java, ADA (CSE & IT)
+
+```3rd year``` : Computing Skill (C, C++, Java, DS, MathsLab, Python)
 
 ### Demo
 
@@ -10,7 +12,7 @@
 
 ### Local usage
 
-- Command ```make``` for Linux / MacOS
+- Run command ```make``` for Linux / MacOS
 - Run ```run.bat``` on Windows
 
 - Go to [localhost:5000](http://localhost:5000)
@@ -19,9 +21,9 @@ _Allow upto 10 mins even on a very fast connection_.
 
 ### Cloud usage (Recommended)
 
-- Goto this [Colab Notebook](https://colab.​research.​google.​com/github/rounakdatta/elab-report-maker/blob/master/elabreport.ipynb).
+- Directly goto this [Colab Notebook](https://colab.​research.​google.​com/github/rounakdatta/elab-report-maker/blob/master/elabreport.ipynb).
 
-- Sign Up / In before proceeding with any changes
+- Sign Up / Sign In before proceeding with any changes
 
 - At the beginning of code-cell-1, replace *USERNAME*, *PASSWORD*, *ELAB* with your respective eLab credentials.
 
@@ -32,6 +34,6 @@ _Allow upto 10 mins even on a very fast connection_.
 
 >Google Colab is an entirely free cloud platform!
 
-### Demo Web App
+### Demo Web App (allows upto 5 questions / report)
 
 [elabreport.herokuapp.com](http://elabreport.herokuapp.com)
