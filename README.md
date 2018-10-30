@@ -12,7 +12,7 @@
 
 ### Local usage
 
-- Run command ```make``` for Linux / MacOS
+- Run command ```make``` for Linux / macOS
 - Run ```run.bat``` on Windows
 
 - Go to [localhost:5000](http://localhost:5000)
@@ -37,3 +37,17 @@ _Allow upto 10 mins even on a very fast connection_.
 ### Demo Web App (allows upto 5 questions / report)
 
 [elabreport.herokuapp.com](http://elabreport.herokuapp.com)
+
+### Contribute
+
+This project repository was made for personal use and will not be maintained by the original owners further. Feel free to fork the repository and make changes corresponding to your eLab to improve support. Some pending work can be :
+
+- [ ] Rewrite the entire web application asynchronously
+- [ ] Package the web application also as a native app
+- [ ] Added support for multiple eLabs
+- [ ] Cloud-hosted with full support on Heroku / PythonAnywhere / AWS
+- [ ] Click-and-go : Allow user to be notified and PDF emailed when report generation is complete
+
+### Current Maintainers
+
+[rounakdatta](https://github.com/rounakdatta), [harshithmohan](https://github.com/harshithmohan), [catthatcodes](https://github.com/catthatcodes)
