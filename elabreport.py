@@ -264,10 +264,10 @@ def gen_report_all(username, password, elabx):
 								print(str(i + 1) + ' : evaluation error : Couldn\'t get report')
 			
 					else:		
-						print(str(i + 1) + ' : No code written')
+						print(str(i + 1) + ' : Please Write the Code')
 
 				else:
-					print(str(i + 1) + ' : Question not allocated')
+					print(str(i + 1) + ' : Question not allocated: Contact CARE')
 
 				i+=1
 
@@ -287,6 +287,7 @@ def gen_report_all(username, password, elabx):
 			for i in range(0, 100):
 				if(os.path.isfile(payload['uname'] + '-' + str(i//10) + '-' + str(level) + '-' + str(i).zfill(3) + '.png')):
 					os.remove(payload['uname'] + '-' + str(i//10) + '-' + str(level) + '-' + str(i).zfill(3) + '.png')
+					print('Cleared File: '+str(i))
 	
 		print('Image files cleared')
 
